@@ -65,7 +65,8 @@ class Main:
         with open(self.outfile, "w", encoding="UTF-8") as out:
             out.write(json_object)
 
-    def list_to_dict(self, list_param):
+    @staticmethod
+    def list_to_dict(list_param):
         it = iter(list_param)
         res_dct = dict(zip(it, it))
         return res_dct
