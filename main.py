@@ -3,15 +3,16 @@
 This is the file to execute
 Author  Benni347@github.com
 """
+import datetime
+
 # Misc Imports
 import json
-import datetime
 
 # Selenium imports
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class Main:
@@ -65,7 +66,8 @@ class Main:
         with open(self.outfile, "w", encoding="UTF-8") as out:
             out.write(json_object)
 
-    def list_to_dict(self, list_param):
+    @staticmethod
+    def list_to_dict(list_param):
         it = iter(list_param)
         res_dct = dict(zip(it, it))
         return res_dct
@@ -87,7 +89,8 @@ class Main:
         for _, data in enumerate(self.url_list):
             driver.get(data)
             # find data
-            wait.until(EC.presence_of_element_located((By.CLASS_NAME, "attributes")))
+            wait.until(EC.presence_of_element_located(
+                (By.CLASS_NAME, "attributes")))
             for element in driver.find_elements(By.CLASS_NAME, "attributes"):
                 split_element = element.text.split("\n")
                 element_dict = self.list_to_dict(split_element)
